@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+
+<title>{{post.title_tag}}</title>
+
+{% endblock %}
+
+{% block content %}
+
+    <h1>{{post.title}}</h1><br />By - {{post.author.first_name}} {{post.author.last_name}} - {{post.post_data}} <br>
+    <br />
+    {% if post.image_header %}
+       <img src="{{ post.image_header }}" >
+    {% endif %}
+    {{post.body|safe}}
+    <br/><br />
+    <a href="{% url 'home' %}" class="btn btn-secondary">Home</a>
+    <br />
+    <br />
+
+
+    <div class="card mb-3">
+        <div class="row g-0">
+          <div class="col-md-2">
+                {% if post.author.profile.profile_pic %}
+                   <img src="{{post.author.profile.profile_pic.url}}" class="card-img" >
+                {% else %}
+                   <img src="{% static 'theblog/images/kriti.jpg' %}"  class="card-img" >
+                {% endif %}
+          </div>
+          <div class="col-md-10">
+            <div class="card-body">
+              <h5 class="card-title">{{post.author.first_name}} {{post.author.last_name}}</h5>
+              <p class="card-text">{{post.author.profile.boi}}</p>
+              <p class="card-text"><small>
+                <a href="{% url 'show_profile' post.author.profile.id%}" >User Profile |</a>
+                <a href="{{post.author.profile.website_url}}" >Website |</a>
+                
+                <a href="{{post.author.profile.facebook_url}}">Facebook</a></small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+   
+
+
+{% endblock %}
